@@ -24,7 +24,6 @@ def main():
                                          "sigmoid", "paragraph"])
     # Note I haven't tested modes other than `shared-norm` on this corpus, so
     # some things might need adjusting
-    parser.add_argument("name", help="Where to store the model")
     parser.add_argument("-t", "--n_tokens", default=400, type=int,
                         help="Paragraph size")
     parser.add_argument('-n', '--n_processes', type=int, default=2,
@@ -35,15 +34,12 @@ def main():
     mode = args.mode
     corpus = args.corpus
 
-    out = args.name + "-" + datetime.now().strftime("%m%d-%H%M%S")
-
     model = get_model(100, 140, mode, WithIndicators())
 
     extract = ExtractMultiParagraphsPerQuestion(MergeParagraphs(args.n_tokens),
                                                 ShallowOpenWebRanker(16),
                                                 model.preprocessor, intern=True)
 
-    eval = [LossEvaluator(), MultiParagraphSpanEvaluator(8, "triviaqa", mode != "merge", per_doc=False)]
     oversample = [1] * 2  # Sample the top two answer-containing paragraphs twice
 
     if mode == "paragraph":
@@ -65,22 +61,12 @@ def main():
 
     data = XQADataset(corpus)
 
-    params = TrainParams(
-        SerializableOptimizer("Adadelta", dict(learning_rate=1)),
-        num_epochs=n_epochs, ema=0.999, max_checkpoints_to_keep=2,
-        async_encoding=10, log_period=30, eval_period=1800, save_period=1800,
-        best_weights=("dev", "b8/question-text-f1"),
-        eval_samples=dict(dev=None, train=6000)
-    )
-
     data = PreprocessedData(data, extract, train, test, eval_on_verified=False)
 
     data.preprocess(args.n_processes, 1000)
 
-    with open(__file__, "r") as f:
-        notes = f.read()
-    notes = "Mode: " + args.mode + "\n" + notes
-    trainer.start_training(data, model, params, eval, model_dir.ModelDir(out), notes)
+    # dump preprocessed train data for bert
+    data.cache_preprocess("train_data.pkl")
 
 
 if __name__ == "__main__":

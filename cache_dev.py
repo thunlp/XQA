@@ -36,7 +36,6 @@ def main():
                                                 ShallowOpenWebRanker(16),
                                                 model.preprocessor, intern=True)
 
-    eval = [LossEvaluator(), MultiParagraphSpanEvaluator(8, "triviaqa", mode != "merge", per_doc=False)]
     oversample = [1] * 2  # Sample the top two answer-containing paragraphs twice
 
     if mode == "paragraph":
