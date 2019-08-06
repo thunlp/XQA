@@ -5,7 +5,7 @@ This repo contains data and baseline implementation for ACL 2019 paper "XQA: A C
 ## Setup
 ### Data
 The XQA dataset (questions, answers, and top-10 relevant articles) can be downloaded with the following link: [The XQA dataset](https://thunlp.s3-us-west-1.amazonaws.com/data_XQA.tar.gz). 
-; https://thunlp.oss-cn-qingdao.aliyuncs.com/data_XQA.tar.gz
+<!--https://thunlp.oss-cn-qingdao.aliyuncs.com/data_XQA.tar.gz-->
 
 We also provide preprocessed wiki dumps for each language at [Wiki Dump for XQA](https://thunlp.oss-cn-qingdao.aliyuncs.com/wiki_XQA.tar.gz). If you are going to use your own retrival module, please use them as the text corpus.
 
