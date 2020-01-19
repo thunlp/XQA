@@ -137,7 +137,7 @@ def build_xqa_corpus(corpus_name, n_processes):
             dev=join(CORPUS_NAME_TO_PATH[corpus_name], "qa", "dev.json"),
             test=join(CORPUS_NAME_TO_PATH[corpus_name], "qa", "test.json")
         )
-    if corpus_name == "en_trans_zh" or corpus_name == "zh_ori":
+    if corpus_name == "en_trans_zh" or corpus_name == "zh":
         tokenizer = ChineseTokenizer()
     else:
         tokenizer = NltkAndPunctTokenizer()
