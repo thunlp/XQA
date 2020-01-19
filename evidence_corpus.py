@@ -267,7 +267,7 @@ def main():
 
     output_dir = join(config.CORPUS_DIR, args.corpus, "evidence")
     source = join(config.CORPUS_NAME_TO_PATH[args.corpus], "evidence")
-    if args.corpus == "en_trans_zh" or args.corpus == "zh_ori":
+    if args.corpus == "en_trans_zh" or args.corpus == "zh":
         tokenizer = ChineseTokenizer()
     else:
         tokenizer = NltkAndPunctTokenizer()
