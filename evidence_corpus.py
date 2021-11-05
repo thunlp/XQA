@@ -255,7 +255,7 @@ class XQAEvidenceCorpusTxt(object):
 def main():
     parse = argparse.ArgumentParser("Pre-tokenize the XQA evidence corpus")
     parse.add_argument("--corpus",
-                       choices=["en", "fr", "de", "ru", "pt", "zh", "pl", "uk", "ta"
+                       choices=["en", "fr", "de", "ru", "pt", "zh", "pl", "uk", "ta",
                                 "en_trans_de", "en_trans_zh",
                                 "fr_trans_en", "de_trans_en", "ru_trans_en", "pt_trans_en",
                                 "zh_trans_en", "pl_trans_en", "uk_trans_en", "ta_trans_en"],
